@@ -21,7 +21,7 @@ When it is critical situation it is important to understand the meaning of the e
 	- Once your app is running (python run.py from app folder)
 	- Go to http://localhost:3001 and the app will now run
 
-##### Files Structure:
+### Files Structure:
 app
 | - template
 | |- master.html # main page of web app

@@ -39,6 +39,12 @@ def clean_data(messages, categories):
     
     # drop duplicates
     df = df.drop_duplicates()
+    
+    # drop column with only one value
+    df = df.drop(columns=['child_alone'])
+    
+    #remove value "2" from 'related' column
+    df[['related']] = df[['related']].replace(2, 1)
    
     return df
 

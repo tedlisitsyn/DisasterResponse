@@ -6,6 +6,9 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    
+    # read messages and their categories from the related csv files for the future merge based on ID
+    
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     return messages, categories
@@ -40,8 +43,9 @@ def clean_data(messages, categories):
     return df
 
 def save_data(df, database_filename):
-    """Save data into DB
-    """
+    
+    #Save data into DB
+   
     engine = create_engine('sqlite:///' + database_filename)
     df.to_sql("CleanedDataTable", engine, index=False, if_exists='replace')
 

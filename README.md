@@ -23,16 +23,19 @@ When it is critical situation it is important to understand the meaning of the e
 
 ### Files Structure:
 app
-	- template
-		- master.html # main page of web app
-		- go.html # classification result page of web app
-	- run.py # Flask file that runs app
+- template
+	- master.html # main page of web app
+	- go.html # classification result page of web app
+- run.py # Flask file that runs app
+
 data
-	- disaster_categories.csv # data to process
-	- disaster_messages.csv # data to process
-	- process_data.py # get raw data, clean it, and save to the ready for processing DataBase
-	- DisasterResponse.db # database to save clean data to
+- disaster_categories.csv # data to process
+- disaster_messages.csv # data to process
+- process_data.py # get raw data, clean it, and save to the ready for processing DataBase
+- DisasterResponse.db # database to save clean data to
+
 models
-	- train_classifier.py # train the model based on clean data
-	- classifier.pkl # saved model
+- train_classifier.py # train the model based on clean data
+- classifier.pkl # saved model
+
 README.md

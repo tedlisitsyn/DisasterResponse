@@ -25,10 +25,9 @@ def tokenize(text):
 
     return clean_tokens
 
-# load data
+# load clean data
 engine = create_engine('sqlite:///../data/DisasterResponse.db')
 df = pd.read_sql_table("CleanedDataTable", engine)
-df = df.drop(columns=['child_alone'])
 
 # load model
 model = joblib.load("../models/classifier.pkl")

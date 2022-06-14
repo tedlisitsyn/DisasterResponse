@@ -1,10 +1,12 @@
 import sys
+
 # import libraries
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
 import re
 import pickle
+
 # download necessary NLTK data
 import nltk
 from nltk.corpus import stopwords
@@ -13,6 +15,7 @@ from nltk.tokenize import word_tokenize
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
+
 # import statements
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
@@ -26,18 +29,23 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sklearn.utils.multiclass import type_of_target
 from sklearn.model_selection import GridSearchCV
+
 def load_data(database_filepath):
+    
+    #define df based on it's location
     filepath = database_filepath
     engine = create_engine('sqlite:///' + filepath)
   
     df = pd.read_sql_table("CleanedDataTable", engine)
     
-    df = df.drop(columns=['child_alone'])
+    #define X and y for the further model training
+    
     X = df.message.values
     y = np.asarray(df[df.columns[4:]])
     category_names = df.columns[4:]
     print(X, y)
     return X, y,category_names
+
 def tokenize(text):
     # normalize case and remove punctuation
     new_text = [word.lower() for word in text]
@@ -50,6 +58,7 @@ def tokenize(text):
     lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stopwords.words('english')]
     return tokens
+
 def build_model():
     knn = KNeighborsClassifier(n_neighbors=3)
     pipeline = Pipeline([
@@ -66,12 +75,15 @@ def build_model():
     #y_pred = pipeline.predict(X_test)
     
     return pipeline
+
 def evaluate_model(model,X_test, Y_test, category_names):
     Y_pred = model.predict(X_test)
     for i in range(len(category_names)):
         print("Category:", category_names[i],"\n", classification_report(Y_test[:, i], Y_pred[:, i]))
+
 def save_model(model, model_filepath):
     pickle.dump(model,open(model_filepath,'wb'))
+
 def main():
     if len(sys.argv) == 3:
         database_filepath, model_filepath = sys.argv[1:]
@@ -95,5 +107,6 @@ def main():
               'as the first argument and the filepath of the pickle file to '\
               'save the model to as the second argument. \n\nExample: python '\
               'train_classifier.py ../data/DisasterResponse.db classifier.pkl')
+
 if __name__ == '__main__':
     main()

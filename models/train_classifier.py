@@ -103,19 +103,18 @@ def build_model():
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(knn, n_jobs=-1)),
     ])
-    return pipeline
-
-'''
-Next step model with GridSearchCV which is used to find the best parameters for the model
-Wasn't able to run at my machine as it was calculating for hours
-
-def build_model_gridsearchcv():
-
+    
     parameters = {
-        'vect__max_df': (0.5, 1.0),
+            'vect__max_df': (0.5, 1.0)
     }
     
-    LIST OF PARAMETERS FOR HIGHER GPU:
+
+    cv = GridSearchCV(pipeline, param_grid=parameters)
+    
+    return cv
+
+''' 
+LIST OF PARAMETERS THAT CAN BE ADDED TO build_model () WITH HIGHER GPU:
     parameters = {
         'vect__max_df': (0.5, 0.75, 1.0),
         'vect__max_features': (None, 5000, 10000),
@@ -127,10 +126,6 @@ def build_model_gridsearchcv():
         'clf__estimator__n_neighbors': (1, 3, 50),
         'clf__estimator__p': (2, 3, 4),
     }
-    
-    cv = GridSearchCV(pipeline, param_grid=parameters)
-
-    return cv
 '''
 
 def evaluate_model(model, X_test, Y_test, category_names):

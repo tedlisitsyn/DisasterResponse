@@ -47,7 +47,7 @@ data
 
 models
 - train_classifier.py # train the model based on clean data
-- classifier.pkl # saved model
+- classifier.pkl # saved model, current file is to large to upload, so can be found [here](https://drive.google.com/file/d/1R9L3nnsuEFkoYPJzXEtQM34uclFBVE5b/view?usp=sharing)
 
 README.md
 

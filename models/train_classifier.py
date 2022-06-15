@@ -32,6 +32,19 @@ from sklearn.model_selection import GridSearchCV
 
 def load_data(database_filepath):
     
+    '''
+    load_data
+    Load data from DB for further model training
+    
+    Input:
+    database_filepath filepath to clean DB
+    
+    Returns:
+    X messages
+    y categorization
+    category_names names of categories
+    '''
+    
     #define df based on it's location
     filepath = database_filepath
     engine = create_engine('sqlite:///' + filepath)
@@ -44,9 +57,21 @@ def load_data(database_filepath):
     y = np.asarray(df[df.columns[4:]])
     category_names = df.columns[4:]
     print(X, y)
-    return X, y,category_names
+    return X, y, category_names
 
 def tokenize(text):
+    
+    '''
+    tokenize
+    Return tokenized text from initial messages
+    
+    Input:
+    text messages array
+    
+    Returns:
+    tokens tokenized text
+    '''
+    
     # normalize case and remove punctuation
     new_text = [word.lower() for word in text]
     text = re.sub(r"[^a-zA-Z0-9]", " ", str(text))
@@ -60,28 +85,91 @@ def tokenize(text):
     return tokens
 
 def build_model():
+    
+    '''
+    build_model
+    setup model for training
+    
+    Returns:
+    pipeline
+    '''
+    
+    #define classifier
     knn = KNeighborsClassifier(n_neighbors=3)
+    
+    #setup pipeline
     pipeline = Pipeline([
         ('vect', CountVectorizer()),
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(knn, n_jobs=-1)),
     ])
-    
-    #df, X, y = load_data()
-    #X_train, X_test, y_train, y_test = train_test_split(X, y)
-    # train classifier
-    #pipeline.fit(X_train,y_train)
-    # predict on test data
-    #y_pred = pipeline.predict(X_test)
-    
     return pipeline
 
-def evaluate_model(model,X_test, Y_test, category_names):
+'''
+Next step model with GridSearchCV which is used to find the best parameters for the model
+Wasn't able to run at my machine as it was calculating for hours
+
+def build_model_gridsearchcv():
+
+    parameters = {
+        'vect__max_df': (0.5, 1.0),
+    }
+    
+    LIST OF PARAMETERS FOR HIGHER GPU:
+    parameters = {
+        'vect__max_df': (0.5, 0.75, 1.0),
+        'vect__max_features': (None, 5000, 10000),
+        'tfidf__smooth_idf': (True, False),
+        'tfidf__sublinear_tf': (True, False),
+        'tfidf__use_idf': (True, False),
+        'clf__estimator__leaf_size': (10, 30, 50),
+        'clf__estimator__n_jobs': (1, 2, 3), 
+        'clf__estimator__n_neighbors': (1, 3, 50),
+        'clf__estimator__p': (2, 3, 4),
+    }
+    
+    cv = GridSearchCV(pipeline, param_grid=parameters)
+
+    return cv
+'''
+
+def evaluate_model(model, X_test, Y_test, category_names):
+    
+    '''
+    evaluate_mode
+    evaluate trained model
+    
+    Input:
+    model trained model
+    X_test test messages
+    Y_test test categorization
+    category_names categories to test by
+    
+    Returns:
+    classification_report
+    '''
+    
+    # calculate Y_pred based on our model
     Y_pred = model.predict(X_test)
+    
+    #prepare classification_report for each category
     for i in range(len(category_names)):
         print("Category:", category_names[i],"\n", classification_report(Y_test[:, i], Y_pred[:, i]))
 
 def save_model(model, model_filepath):
+    
+    '''
+    save_model
+    save our trained model as a pickle file
+    
+    Input:
+    model our trained model
+    database_filepath place to store model as a pickle file
+    
+    Returns:
+    pickle file as a saved model
+    '''
+    
     pickle.dump(model,open(model_filepath,'wb'))
 
 def main():

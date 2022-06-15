@@ -3,7 +3,7 @@
 When it is critical situation it is important to understand the meaning of the emergecny message as fast as possible - preferably in the version of web tool so it can't be easily accessable from any place - and act based on this classification.
 "Disasters" is the tool where an emergency worker can input a new message and get classification results in several categories.
 
-### Tool Overview:
+### Tool Usage:
 
 Use Input Bar to Classify Message:
 ![Input Message](https://github.com/tedlisitsyn/DisasterResponse/blob/main/screenshots/disasterinput.png)
@@ -14,7 +14,7 @@ Get actual information on Distribution of Message Genres:
 Get actual information on Top-10 Responses Categories:
 ![Top1-0 Responses](https://github.com/tedlisitsyn/DisasterResponse/blob/main/screenshots/top10resp.png)
 
-### Instructions to Launch:
+### Tool Installation:
 1. Run the following commands in the project's root directory to set up your database and model.
 
     - To run ETL pipeline that cleans data and stores in database
@@ -50,3 +50,13 @@ models
 - classifier.pkl # saved model
 
 README.md
+
+### Credits
+This software uses the following open source packages:
+- [NumPy](https://numpy.org/)
+- [Pandas](https://pandas.pydata.org/)
+- [SQLalchemy](https://www.sqlalchemy.org/)
+- [NLTK](https://www.nltk.org/)
+- [scikit-learn](https://scikit-learn.org/stable/)
+- [json](https://www.json.org/json-en.html)
+- [plotly](https://plotly.com/)

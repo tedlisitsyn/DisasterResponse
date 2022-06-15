@@ -68,7 +68,7 @@ def clean_data(messages, categories):
     # drop column with only one value
     df = df.drop(columns=['child_alone'])
     
-    #remove value "2" from 'related' column
+    #replace value "2" with "1" at the 'related' column
     df[['related']] = df[['related']].replace(2, 1)
    
     return df

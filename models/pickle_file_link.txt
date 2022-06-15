@@ -1,0 +1,2 @@
+As classifier.pkl (pickle file) is to large to upload to GitHub you can find it here:
+https://drive.google.com/file/d/1R9L3nnsuEFkoYPJzXEtQM34uclFBVE5b/view?usp=sharing

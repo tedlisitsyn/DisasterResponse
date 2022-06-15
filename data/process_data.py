@@ -7,6 +7,19 @@ from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
     
+    '''
+    load_data
+    Load messages and categories data from CSV files for the further processing into one dataframe
+    
+    Input:
+    messages_filepath filepath to messages csv file
+    categories_filepath filepath to categories csv file
+    
+    Returns:
+    messages
+    categories
+    '''
+    
     # read messages and their categories from the related csv files for the future merge based on ID
     
     messages = pd.read_csv(messages_filepath)
@@ -15,6 +28,18 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(messages, categories):
+    
+    '''
+    clean_data
+    combined messages and categories dataframes and clean the data
+    
+    Input:
+    messages dataframe with messages data
+    categories dataframe with categories data
+    
+    Returns:
+    df combined clean messages and categories data
+    '''
     
     #create clean files for categories
     
@@ -49,6 +74,18 @@ def clean_data(messages, categories):
     return df
 
 def save_data(df, database_filename):
+    
+    '''
+    save_data
+    save our clean dataframe as a DB
+    
+    Input:
+    df our clean dataframe
+    database_filepath place to store dataframe as DB
+    
+    Returns:
+    Saved DB
+    '''
     
     #Save data into DB
    

@@ -16,8 +16,8 @@ def load_data(messages_filepath, categories_filepath):
     categories_filepath filepath to categories csv file
     
     Returns:
-    messages
-    categories
+    messages dataframe with messages
+    categories dataframe with categories
     '''
     
     # read messages and their categories from the related csv files for the future merge based on ID
